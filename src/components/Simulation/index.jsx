@@ -15,6 +15,7 @@ export const Simulation = () => {
 
     const { simulation } = useContext(SimulationContext);
     const [parcels, setParcels] = useState([]);
+    const [sucess, setSucess] = useState(false);
     console.log(simulation);
     useEffect(()=>{
               
@@ -50,12 +51,13 @@ export const Simulation = () => {
             "totalPayValue": `${simulation.simulation.totalPayValue}`,
             "parcels": parcels
         }, {headers})
-                 .then((response)=>console.log('criado'))
+                 .then((response)=>setSucess(true))
                  .catch((err)=>{console.error("error"+err)})
         }
 
     return(
         <Container>
+            {sucess ? <h1>Emprestimo criado</h1> : null}
             <h2>Veja a simulação para o seu empréstimo antes de efetivar</h2>
             <TableContainer>
                 <Table>
