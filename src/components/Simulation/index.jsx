@@ -19,19 +19,7 @@ export const Simulation = () => {
     console.log(simulation);
     useEffect(()=>{
               
-        setParcels(simulation.simulation.parcels);
-        // if(simulation.simulation.parcels){
-        //     setParcels(simulation.simulation.parcels);
-        // }
-       
-        // async function list(){
-        //     await api.get('/loan/list')
-        //     .then((response)=>console.log(response.data))
-        //     .catch((err)=>{
-        //         console.error('erro'+ err);
-        //     })
-        // }
-        // list();
+        setParcels(simulation?.simulation?.parcels);
     },[]);
 
     const createEmprestimo = async () =>{
@@ -40,10 +28,10 @@ export const Simulation = () => {
             'Accept': 'aplication/json',
         }
         await api.post("/loan/create",{
-            "cpf": `${simulation.simulation.cpf}`,
-            "birthday": `${simulation.simulation.birthday}`,
-            "value": `${simulation.simulation.value}`,
-            "uf": `${simulation.simulation.uf}`,
+            "cpf": `${simulation?.simulation?.cpf}`,
+            "birthday": `${simulation?.simulation.birthday}`,
+            "value": `${simulation?.simulation.value}`,
+            "uf": `${simulation?.simulation.uf}`,
             "tax": `${simulation.simulation.tax}`,
             "parcelValue": `${simulation.simulation.parcelValue}`,
             "qntParcels": `${simulation.simulation.qntParcels}`,
@@ -61,6 +49,34 @@ export const Simulation = () => {
             <h2>Veja a simulação para o seu empréstimo antes de efetivar</h2>
             <TableContainer>
                 <Table>
+                <div style={{ display: 'flex', justifyContent: 'space-between', width: '80%'}}>
+                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+                        <p>VALOR REQUERIDO:</p>
+                        <p>{simulation?.simulation?.value ? simulation?.simulation?.value : 0}</p>
+                    </div>
+                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+                        <p>TAXA DE JUROS</p>
+                        <p>{simulation?.simulation?.value ? simulation?.simulation?.tax : 0}</p>
+                    </div>
+                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+                        <p>VALOR DA PARCELA</p>
+                        <p>{simulation?.simulation?.value ? simulation?.simulation?.parcelValue : 0}</p>
+                    </div>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', width: '80%'}}>
+                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+                        <p>TOTAL DE MESES PARA QUITAR</p>
+                        <p>{simulation?.simulation?.qntParcels  ? simulation?.simulation?.qntParcels : 0}</p>
+                    </div>
+                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+                        <p>TOTAL DE JUROS</p>
+                        <p>{simulation?.simulation?.totalTax  ? simulation?.simulation?.totalTax : 0}</p>
+                    </div>
+                    <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+                        <p>TOTAL A PAGAR</p>
+                        <p>{simulation?.simulation?.totalPayValue  ? simulation?.simulation?.totalPayValue : 0}</p>
+                    </div>
+                </div>
                     <TableRow>
                         <TableColumnTitle>SALDO DEVEDOR</TableColumnTitle>
                         <TableColumnTitle>JUROS</TableColumnTitle>
@@ -68,7 +84,7 @@ export const Simulation = () => {
                         <TableColumnTitle>VALOR DA PARCELA</TableColumnTitle>
                         <TableColumnTitle>VENCIMENTO</TableColumnTitle>
                     </TableRow>
-                    {parcels.length > 0 ? parcels.map((parcel)=>
+                    {parcels?.map((parcel)=>
                         <TableRow key={parcel.id}>
                             <TableColumnContent>R$ {parcel.payValue}</TableColumnContent>
                             <TableColumnContent>R$ {parcel.feesValue}</TableColumnContent>
@@ -76,7 +92,7 @@ export const Simulation = () => {
                             <TableColumnContent>R$ {parcel.parcelValue}</TableColumnContent>
                             <TableColumnContent>{parcel.parcelValue}</TableColumnContent>
                         </TableRow>
-                    ): null}
+                    )}
                     <TableRow>
                         <TableColumnContent>R$ 0</TableColumnContent>
                     </TableRow>

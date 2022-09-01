@@ -13,24 +13,23 @@ export const Form = () => {
     const { setSimulation } = useContext(SimulationContext);
     const [simulate, setSimulate] = useState([]);
 
-    const onSubmit = handleSubmit(async (data) => {
+    const onSubmit = handleSubmit((data) => {
         const headers = {
             'Content-Type': 'application/json',
             'Accept': 'aplication/json',
         }
-        await api.post('/loan/simulate',{
+        api.post('/loan/simulate',{
             "birthday": `${data.birthdate}`,
             "uf":`${data.city}`,
             "cpf": `${data.cpf}`,
             "parcelValue": `${data.parcel}`,
-            "value": data.loan,
+            "value": 60000,
         },{headers})
             .then((response)=> setSimulate(response.data))
             .catch((err)=>{
                 console.error('error'+err);
             });
         setSimulation(simulate) 
-       
     });
     
    
